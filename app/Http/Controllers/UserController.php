@@ -8,12 +8,21 @@ class UserController extends Controller
 {
     public function index()
 {
-    // Tampilkan daftar user
+    //parsing data
+    $nama = "Sky";
+    $titles = ["staff", "kasir"];
+    $usia = 20;
+    $data = [
+        "myName" => $nama,
+        "age" => $usia,
+        "titles" => $titles
+    ];
+    return view('user.index', $data);
 }
 
 public function create()
 {
-    // Tampilkan formulir pembuatan user
+    return view('user.create');
 }
 
 public function store(Request $request)
@@ -28,7 +37,7 @@ public function show($id)
 
 public function edit($id)
 {
-    // Tampilkan formulir pengeditan user
+    return view('user.edit');
 }
 
 public function update(Request $request, $id)
