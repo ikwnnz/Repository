@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\mahasiswaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,8 @@ Route::get('/users/{user}', [UserController::class, 'show']);
 Route::get('/users/{user}/edit', [UserController::class, 'edit']);
 Route::put('/users/{user}', [UserController::class, 'update']);
 Route::delete('/users/{user}', [UserController::class, 'destroy']);
+
+Route::resource('mahasiswa', mahasiswaController::class);
 
 
 Auth::routes();
