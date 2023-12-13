@@ -18,6 +18,7 @@ class CreateMahasiswasTable extends Migration
             $table->unique('nim');
             $table->string('nama');
             $table->string('jurusan');
+            
         });
     }
 
