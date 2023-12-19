@@ -5,7 +5,7 @@
     <div class="my-3 p-3 bg-body rounded shadow-sm">
         <!-- FORM PENCARIAN -->
         <div class="pb-3">
-            <form class="d-flex" action="" method="get">
+            <form class="d-flex" action="{{ url('mahasiswa') }}" method="get">
                 <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Search" aria-label="Search">
                 <button class="btn btn-secondary" type="submit">Cari</button>
             </form>
@@ -27,18 +27,27 @@
                 </tr>
             </thead>
             <tbody>
+                <?php $i = $data->firstItem() ?>
+                @foreach ($data as $item)    
                 <tr>
-                    <td>1</td>
-                    <td>1001</td>
-                    <td>Sky</td>
-                    <td>Sismte Informasi</td>
+                    <td>{{ $i }}</td>
+                    <td>{{ $item->nim }}</td>
+                    <td>{{ $item->nama }}</td>
+                    <td>{{ $item->jurusan }}</td>
                     <td>
-                        <a href='{{ url('mahasiswa/1/edit') }}' class="btn btn-warning btn-sm">Edit</a>
-                        <a href='' class="btn btn-danger btn-sm">Del</a>
+                        <a href='{{ url('mahasiswa/'.$item->nim.'/edit') }}' class="btn btn-warning btn-sm">Edit</a>
+                        <form onsubmit="return confirm('Hapus data?')" class="d-inline" action="{{ url('mahasiswa/'.$item->nim) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" name="submit" class="btn btn-danger btn-sm">Del</button>
+                        </form>
                     </td>
                 </tr>
+                <?php $i++?>
+                @endforeach
             </tbody>
         </table>
+        {{ $data->withQueryString()->links() }}
     </div>
 </div>
           <!-- AKHIR DATA -->

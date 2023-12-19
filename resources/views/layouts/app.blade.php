@@ -76,6 +76,10 @@
         </nav>
 
         <main class="py-4">
+            <div class="container">
+                @include('komponen.pesan')
+            </div>
+
             @yield('content')
         </main>
     </div>
