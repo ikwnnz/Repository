@@ -28,7 +28,7 @@ Route::get('/users/{user}/edit', [UserController::class, 'edit']);
 Route::put('/users/{user}', [UserController::class, 'update']);
 Route::delete('/users/{user}', [UserController::class, 'destroy']);
 
-Route::resource('mahasiswa', mahasiswaController::class);
+Route::resource('mahasiswa', mahasiswaController::class)->except('show')->middleware('admin');
 
 
 Auth::routes();
