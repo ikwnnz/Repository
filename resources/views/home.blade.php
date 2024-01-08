@@ -13,8 +13,20 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    {{ __('You are logged in!') }}
+                    <div>
+                        <div class="pb-3 d-inline">
+                            <a href='mahasiswa' class="btn btn-primary">Data Mahasiswa</a>
+                        </div>
+                        <div class="pb-3 d-inline">
+                            <a href='dosen' class="btn btn-primary">Data Dosen</a>
+                        </div>
+                        <div class="pb-3 d-inline">
+                            <a href='' class="btn btn-primary">Data Prodi</a>
+                        </div>
+                        <div class="pb-3 d-inline">
+                            <a href='' class="btn btn-primary">Data Mata Kuliah</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

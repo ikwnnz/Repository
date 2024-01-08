@@ -2,31 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dosen;
 use App\Models\mahasiswa;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session as FacadesSession;
 
-class mahasiswaController extends Controller
+class DosenController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $katakunci = $request->katakunci;
-        $jumlahbaris = 5;
-        if(strlen($katakunci)){
-            $data = mahasiswa::where('nim','like',"%$katakunci%")
-                ->orWhere('nama','like',"%$katakunci%")
-                ->orWhere('jurusan','like',"%$katakunci%")
-                ->paginate($jumlahbaris);
-        }else{
-            $data = mahasiswa::orderBy('nim', 'desc')->paginate($jumlahbaris);
-        }
-        return view('mahasiswa.index')->with('data', $data);
+        return view('dosen.index');
     }
 
     /**
@@ -36,7 +27,7 @@ class mahasiswaController extends Controller
      */
     public function create()
     {
-        return view('mahasiswa.create');
+        return view('dosen.create');
     }
 
     /**
@@ -47,28 +38,24 @@ class mahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        FacadesSession::flash('nim',$request->nim);
+        FacadesSession::flash('nip',$request->nip);
         FacadesSession::flash('nama',$request->nama);
-        FacadesSession::flash('jurusan',$request->jurusan);
 
         $request->validate([
-            'nim'=>'required|numeric|unique:mahasiswa,nim',
+            'nip'=>'required|numeric|unique:dosen,nip',
             'nama'=>'required',
-            'jurusan'=>'required',
         ],[
-            'nim.required'=>'NIM Harus Diisi',
-            'nim.numeric'=>'NIM Harus Angka',
-            'nim.unique'=>'NIM Sudah ada dalam Database',
+            'nip.required'=>'NIP Harus Diisi',
+            'nip.numeric'=>'NIP Harus Angka',
+            'nip.unique'=>'NIP Sudah ada dalam Database',
             'nama.required'=>'Nama Harus Diisi',
-            'jurusan.required'=>'Jurusan Harus Diisi',
         ]);
         $data = [
-            'nim'=>$request->nim,
+            'nip'=>$request->nip,
             'nama'=>$request->nama,
-            'jurusan'=>$request->jurusan,
         ];
-        mahasiswa::create($data);
-        return redirect()->to('mahasiswa')->with('success','Data berhasil ditambahkan');
+        Dosen::create($data);
+        return redirect()->to('dosen')->with('success','Data berhasil ditambahkan');
     }
 
     /**
@@ -90,8 +77,8 @@ class mahasiswaController extends Controller
      */
     public function edit($id)
     {
-        $data = mahasiswa::where('nim', $id)->first();
-        return view('mahasiswa.edit')->with('data', $data);
+        $data = Dosen::where('nip', $id)->first();
+        return view('dosen.edit')->with('data', $data);
     }
 
     /**
@@ -105,18 +92,14 @@ class mahasiswaController extends Controller
     {
         $request->validate([
             'nama'=>'required',
-            'jurusan'=>'required',
         ],[
-
             'nama.required'=>'Nama Harus Diisi',
-            'jurusan.required'=>'Jurusan Harus Diisi',
         ]);
         $data = [
             'nama'=>$request->nama,
-            'jurusan'=>$request->jurusan,
         ];
-        mahasiswa::where('nim', $id)->update($data);
-        return redirect()->to('mahasiswa')->with('success','Data berhasil diupdate');
+        Dosen::where('nip', $id)->update($data);
+        return redirect()->to('dosen')->with('success','Data berhasil diupdate');
     }
 
     /**

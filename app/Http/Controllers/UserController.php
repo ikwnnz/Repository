@@ -8,16 +8,7 @@ class UserController extends Controller
 {
     public function index()
 {
-    //parsing data
-    $nama = "Sky";
-    $titles = ["staff", "kasir"];
-    $usia = 20;
-    $data = [
-        "myName" => $nama,
-        "age" => $usia,
-        "titles" => $titles
-    ];
-    return view('user.index', $data);
+    return view('user.index');
 }
 
 public function create()
